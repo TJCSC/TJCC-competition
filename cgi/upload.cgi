@@ -10,7 +10,7 @@ print "<body>"
 
 print "<h1>Favorite Color Competition Upload Page!</h1>"
 
-print "<form method='post'>"
+print "<form enctype='multipart/form-data' action='save_story.py' method='post'>"
 
 # standard single line text field
 print "Color Name:"
@@ -35,9 +35,11 @@ form = cgi.FieldStorage()
 
 if form.has_key('picture'):
     pic = form['picture']
-    print pic
-    print dir(pic)
-    print pic.type
+    print pic, "<br />"
+    print dir(pic), "<br />"
+    print form, "<br />"
+    print dir(form), "<br />"
+    print pic.type, "<br />"
     if pic.file: 
         with file(os.path.join('/pix', pic.filename), 'wb') as fout:
             while 1:
@@ -45,7 +47,7 @@ if form.has_key('picture'):
                 if not chunk: break
                 fout.write(chunk)
     else:
-        print "Invalid file"
+        print "Invalid file<br />"
 else:
     print "No picture chosen<br />"
 
