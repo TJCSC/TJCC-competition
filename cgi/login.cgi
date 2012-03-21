@@ -12,7 +12,7 @@ print "<ul>"
 connection = sqlite3.connect('./database')
 d = connection.cursor()
 
-d.execute('''create table test (txt text)''')
+# TODO #
 connection.commit()
 d.close()
 
