@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import cgi
+import os, sys
 
 print "Content-Type: text/html"
 print
@@ -16,26 +17,17 @@ print "Color Name:"
 print "<input type='text' name='color_name' value='' />"
 print "<br />"
 
-# radio buttons
-print "radio_field_field:"
-print "<input type='radio' name='radio_field' value='left' />"
-print "<input type='radio' name='radio_field' value='right' />" 
-print "<br />"
-
-# select box
-print "select_field: "
-print "<select name='select_field'>"
-print "<option value='selected_one'>one</option>"
-print "<option value='selected_two'>two</option>"
-print "<option value='selected_three'>three</option>"
-print "</select>"
-print "<br />"
-
 # text area
-print "text_area:<br />"
-print "<textarea name='text_area' rows='5' cols='20'></textarea>"
+print "Story:<br />"
+print "<textarea name='story' rows='10' cols='50'></textarea>"
 print "<br />"
 
+# file upload
+print "Picture:"
+print "<input type='file' name='picture'>"
+print "<br />"
+
+print "<br />"
 print "<input type='submit' value='submit form' />"
 print "</form>"
 
