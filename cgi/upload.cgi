@@ -32,16 +32,23 @@ print "<input type='submit' value='submit form' />"
 print "</form>"
 
 form = cgi.FieldStorage()
-print "<h2>Parameters</h2>"
-print "<ul>"
-for field_name in form:
-	field=form[field_name]
-	print "<li>"
-	print field.name
-	print " = "
-	print cgi.escape(repr(field.value))
-	print "</li>"
-print "</ul>"
+
+if form.has_key('picture'):
+    pic = form['picture']
+    print pic
+    print dir(pic)
+    print pic.type
+    if pic.file: 
+        with file(os.path.join('/pix', pic.filename), 'wb') as fout:
+            while 1:
+                chunk = pic.file.read(100000)
+                if not chunk: break
+                fout.write(chunk)
+    else:
+        print "Invalid file"
+else:
+    print "No picture chosen<br />"
+
 
 print "</body>"
 print "</html>"
