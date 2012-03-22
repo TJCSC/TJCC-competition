@@ -6,15 +6,15 @@
 <form enctype='multipart/form-data' action='cgi/save_story.cgi' method='post'>
 
 Color Name:
-<input type='text' name='color_name' value='' />
+<input type='text' name='color_name' value='' required/>
 <br />
 
 Story:<br />
-<textarea name='story' rows='10' cols='50'></textarea>
+<textarea name='story' rows='10' cols='50' required></textarea>
 <br />
 
 Picture:
-<input type='file' name='picture'>
+<input type='file' name='picture' required>
 <br />
 
 <br />

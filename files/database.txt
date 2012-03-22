@@ -1,0 +1,9 @@
+user
+	id (int)
+	username (text)
+	password (text)
+	name (text)
+	stories (text)
+
+
+	
