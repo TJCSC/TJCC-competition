@@ -29,10 +29,11 @@ else:
 
 id = random.randint(100, 999)
 
-#connection = sql.connect('./database')
-#d = connection.cursor()
+with sql.connect('./database') as connection:
+    d = connection.cursor()
+    
+    d.execute('INSERT INTO stories VALUES ("%s", %d, 0, "%s")' % (form.getvalue('color_name'), id, 'kusoman'))
 
-#d.execute('select * from users 
 
 with open('stories/' + str(id) + '.html', 'w') as storyFile:
     storyFile.write('''<html><body>

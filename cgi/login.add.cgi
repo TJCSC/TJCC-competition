@@ -8,7 +8,7 @@ print "<html><body>"
 connection = sqlite3.connect('./database')
 d = connection.cursor()
 
-d.execute("""create table stories (id TXT, votes INT, user TXT)""")
+d.execute("")
 
 for r in d:
 	print r

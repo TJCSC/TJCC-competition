@@ -5,5 +5,11 @@ user
 	name (text)
 	stories (text)
 
+stories
+        name (text)
+        id (int)
+        votes (int)
+        user (text)
+
 
 	
