@@ -1,1 +1,9 @@
-TJ Cybersecurity Competition (Alpha)
+TJ Cybersecurity Competition (You were adopted)
+
+To use: ./server.py
+Browse to http://localhost:8080 to try it out.
+
+NOTE:
+
+This is purposely made for a Cybersecurity competition, so it is filled with security holes. 
+'''DO NOT USE THIS ON A PRODUCTION SYSTEM, OR AS THE BASE FOR A PRODUCTION SYSTEM.'''
