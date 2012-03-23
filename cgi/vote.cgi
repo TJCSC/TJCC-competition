@@ -14,8 +14,10 @@ with sql.connect('./database') as connection:
     d = connection.cursor()
 
     d.execute('SELECT votes FROM stories WHERE id=?', (id,))
+    #d.execute('SELECT votes FROM stories WHERE id=%d' % (id,))
     votes = d.fetchone()[0]
     d.execute('UPDATE stories SET votes=? WHERE id=?', (votes+1, id))
+    #d.execute('UPDATE stories SET votes=%d WHERE id=%d' % (votes+1, id))
 
     d.close()
 

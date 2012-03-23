@@ -33,6 +33,7 @@ with sql.connect('./database') as connection:
     d = connection.cursor()
     
     d.execute('INSERT INTO stories VALUES (?, ?, ?, ?, ?, 0)', (form.getvalue('color_name'), id, 'kusoman', form.getvalue('story'), fn))
+    #d.execute('INSERT INTO stories VALUES ("%s", "%s", "%s", "%s", "%s", 0)' % (form.getvalue('color_name'), id, 'kusoman', form.getvalue('story'), fn))
    
 print """\
 Content-Type: text/html\n
