@@ -39,10 +39,19 @@ else:
         
     
         rows = d.fetchall()
-    
+		 
+        c = 0
         for i in range(len(rows)):
             print "<tr>"
-            print "<td>%d</td>" % (i+1)
+            rank = i+1
+            if [x[5] for x in rows].count(rows[i][5])>1:
+                 rank = rank-c
+                 c += 1
+            else:
+                 c = 0
+#			if rows[i][5]
+            print "<td>%d</td>" % (rank)
+
             print "<td><a href='browse.cgi?id=%d'>%s</a></td>" % (rows[i][1], rows[i][0])
             print "<td>%s</td>" % (rows[i][2])
             print "<td>%d</td>" % (rows[i][5])
