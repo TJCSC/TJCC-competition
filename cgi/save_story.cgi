@@ -37,11 +37,13 @@ with sql.connect('./database') as connection:
 
 with open('stories/' + str(id) + '.html', 'w') as storyFile:
     storyFile.write('''<html><body>
-    <h3>%s by %s</h3><br />
-    <br />
+    <a name='top' />
+    <h3>%s by %s</h3>
     <p>%s</p>
-    <br />
-    <img src='../files/%s'>
+    <img src='../files/%s'><br>
+    [<a href='../index.html'>home</a>]
+    [<a href='../cgi/browse.cgi'>browse</a>]
+    [<a href='#top'>top</a>]
     </body></html>'''
     % (form.getvalue('color_name'), 'kusoman', form.getvalue('story'), fn))
 
