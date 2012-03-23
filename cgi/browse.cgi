@@ -6,6 +6,9 @@ import sqlite3
 
 print "Content-Type: text/html\n"
 print "<html><body>"
+print "<a name='top' />"
+
+print "[<a href='../index.html'>home</a>]<br><br>"
 
 print "<table border='1'><tr><th>Rank</th><th>Name</th><th>Author</th><th>Votes</th></tr>"
 
@@ -27,5 +30,6 @@ with sqlite3.connect('./database') as connection:
     
     d.close()
 
-print "</table>"
+print "</table><br>"
+print "[<a href='#top'>top</a>]"
 print "</body></html>"
