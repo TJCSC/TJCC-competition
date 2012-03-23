@@ -41,7 +41,7 @@ with open('stories/' + str(id) + '.html', 'w') as storyFile:
     <h3>%s by %s</h3>
     <p>%s</p>
     <img src='../files/%s'><br>
-    <form enctype='multipart/form-data' action='vote.cgi' method='post'>
+    <form enctype='multipart/form-data' action='../cgi/vote.cgi' method='post'>
     <input type='hidden' name='id' value=%s />
     <input type='image' src='http://blogs.psychcentral.com/depression/files/2011/08/vote.jpg' alt='Vote' width='48' height='48' />
     </form>
@@ -56,6 +56,6 @@ message = str(id) + '.html'
 print """\
 Content-Type: text/html\n
 <html><body>
-<a href='../stories/%s.html'>gogogo</a>
+<meta http-equiv="REFRESH" content="0;../stories/%d.html">
 </body></html>
 """ % (id,)
