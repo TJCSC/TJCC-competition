@@ -6,9 +6,6 @@ def main():
     if raw_input("Are you sure you want to do this? (y/n) ") != "y":
         exit()
 
-    call("rm stories/*", shell=True)
-    print 'Deleted html files'
-
     call("rm files/*", shell=True)
     print 'Deleted pictures'
 

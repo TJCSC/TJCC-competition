@@ -8,8 +8,7 @@ user
 stories
         name (text)
         id (int)
-        votes (int)
         user (text)
-
-
-	
+        story (text)
+        image (text)
+        votes (int)

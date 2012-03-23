@@ -13,16 +13,12 @@ id = int(form.getvalue('id'))
 with sql.connect('./database') as connection:
     d = connection.cursor()
 
-    d.execute('SELECT * FROM stories WHERE id=%d' % (id))
-    row = list(d.fetchone())
-
-    row[2] += 1
-
-    d.execute('DELETE FROM stories WHERE id=%d' % (id))
-    d.execute('INSERT INTO stories VALUES ("%s", %d, %d, "%s")' % tuple(row))
+    d.execute('SELECT votes FROM stories WHERE id=?', (id,))
+    votes = d.fetchone()[0]
+    d.execute('UPDATE stories SET votes=? WHERE id=?', (votes+1, id))
 
     d.close()
 
-print '<meta http-equiv="REFRESH" content="0;../stories/%d.html">' % row[1]
+print '<meta http-equiv="REFRESH" content="0;browse.cgi?id=%d">' % id
 
 print "</body></html>"

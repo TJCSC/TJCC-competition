@@ -32,30 +32,11 @@ id = random.randint(100, 999)
 with sql.connect('./database') as connection:
     d = connection.cursor()
     
-    d.execute('INSERT INTO stories VALUES ("%s", %d, 0, "%s")' % (form.getvalue('color_name'), id, 'kusoman'))
-
-
-with open('stories/' + str(id) + '.html', 'w') as storyFile:
-    storyFile.write('''<html><body>
-    <a name='top' />
-    <h3>%s by %s</h3>
-    <p>%s</p>
-    <img src='../files/%s'><br>
-    <form enctype='multipart/form-data' action='../cgi/vote.cgi' method='post'>
-    <input type='hidden' name='id' value=%s />
-    <input type='image' src='http://blogs.psychcentral.com/depression/files/2011/08/vote.jpg' alt='Vote' width='48' height='48' />
-    </form>
-    [<a href='../index.html'>home</a>]
-    [<a href='../cgi/browse.cgi'>browse</a>]
-    [<a href='#top'>top</a>]
-    </body></html>'''
-    % (form.getvalue('color_name'), 'kusoman', form.getvalue('story'), fn, str(id)))
-
-message = str(id) + '.html'
+    d.execute('INSERT INTO stories VALUES (?, ?, ?, ?, ?, 0)', (form.getvalue('color_name'), id, 'kusoman', form.getvalue('story'), fn))
    
 print """\
 Content-Type: text/html\n
 <html><body>
-<meta http-equiv="REFRESH" content="0;../stories/%d.html">
+<meta http-equiv="REFRESH" content="0;browse.cgi?id=%d">
 </body></html>
 """ % (id,)
