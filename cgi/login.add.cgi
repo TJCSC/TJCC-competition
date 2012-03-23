@@ -8,7 +8,7 @@ print "<html><body>"
 connection = sqlite3.connect('./database')
 d = connection.cursor()
 
-d.execute("CREATE TABLE stories (name TEXT, id INT, user TEXT, story TEXT, image TEXT, votes INT)")
+d.execute("INSERT INTO users VALUES (1,'herp','derp','Herpington','')")
 
 for r in d:
 	print r
