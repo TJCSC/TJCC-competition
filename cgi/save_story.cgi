@@ -41,11 +41,15 @@ with open('stories/' + str(id) + '.html', 'w') as storyFile:
     <h3>%s by %s</h3>
     <p>%s</p>
     <img src='../files/%s'><br>
+    <form enctype='multipart/form-data' action='vote.cgi' method='post'>
+    <input type='hidden' name='id' value=%s />
+    <input type='image' src='http://blogs.psychcentral.com/depression/files/2011/08/vote.jpg' alt='Vote' width='48' height='48' />
+    </form>
     [<a href='../index.html'>home</a>]
     [<a href='../cgi/browse.cgi'>browse</a>]
     [<a href='#top'>top</a>]
     </body></html>'''
-    % (form.getvalue('color_name'), 'kusoman', form.getvalue('story'), fn))
+    % (form.getvalue('color_name'), 'kusoman', form.getvalue('story'), fn, str(id)))
 
 message = str(id) + '.html'
    

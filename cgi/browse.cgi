@@ -6,9 +6,8 @@ import sqlite3
 
 print "Content-Type: text/html\n"
 print "<html><body>"
-print "<a name='top' />"
 
-print "[<a href='../index.html'>home</a>]<br><br>"
+print "[<a name='top' href='../index.html'>home</a>]<br><br>"
 
 print "<table border='1'><tr><th>Rank</th><th>Name</th><th>Author</th><th>Votes</th></tr>"
 
