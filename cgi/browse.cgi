@@ -49,9 +49,7 @@ else:
                  c += 1
             else:
                  c = 0
-#			if rows[i][5]
             print "<td>%d</td>" % (rank)
-
             print "<td><a href='browse.cgi?id=%d'>%s</a></td>" % (rows[i][1], rows[i][0])
             print "<td>%s</td>" % (rows[i][2])
             print "<td>%d</td>" % (rows[i][5])
