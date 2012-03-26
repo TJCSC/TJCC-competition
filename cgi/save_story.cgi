@@ -3,6 +3,7 @@ import cgi, os
 import cgitb; cgitb.enable()
 import sqlite3 as sql
 import random
+from Cookie import SimpleCookie
 
 try: # Windows needs stdio set for binary mode.
     import msvcrt
@@ -29,11 +30,17 @@ else:
 
 id = random.randint(100, 999)
 
+cookie = SimpleCookie(os.environ['HTTP_COOKIE'])
+if 'KOOKIE' in cookie:
+    username = cookie['KOOKIE'].value.split('|')[0]
+else:
+    username = 'guest'
+
 with sql.connect('./database') as connection:
     d = connection.cursor()
     
-    d.execute('INSERT INTO stories VALUES (?, ?, ?, ?, ?, 0)', (form.getvalue('color_name'), id, 'kusoman', form.getvalue('story'), fn))
-    #d.execute('INSERT INTO stories VALUES ("%s", "%s", "%s", "%s", "%s", 0)' % (form.getvalue('color_name'), id, 'kusoman', form.getvalue('story'), fn))
+    d.execute('INSERT INTO stories VALUES (?, ?, ?, ?, ?, 0)', (form.getvalue('color_name'), id, username, form.getvalue('story'), fn))
+    #d.execute('INSERT INTO stories VALUES ("%s", "%d", "%s", "%s", "%s", 0)' % (form.getvalue('color_name'), id, username, form.getvalue('story'), fn))
    
 print """\
 Content-Type: text/html\n
