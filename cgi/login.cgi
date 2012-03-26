@@ -11,6 +11,7 @@ kookie, username = SimpleCookie(os.environ['HTTP_COOKIE']), ""
 form = cgi.FieldStorage()
 if 'KOOKIE' in kookie:
 	cookie = SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value
+	username = cookie
 
 if 'username' in form:
 	if 'password' in form:
