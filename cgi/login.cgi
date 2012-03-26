@@ -32,7 +32,7 @@ if 'username' in form:
 					session_file = open(os.path.join('.sessions', user), 'wb')
 					pickle.dump(session_obj, session_file, 1)
 					session_file.close()
-					print 'Set-Cookie: KOOKIE=%s Path=/;' % user+'|'+passwd
+					print 'Set-Cookie: KOOKIE=%s; Path=/;' % user+'|'+passwd
 					username = session_obj[user]
 				else:
 					username=""
