@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sqlite3 as sql
 from subprocess import call
 
