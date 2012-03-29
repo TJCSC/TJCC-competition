@@ -13,7 +13,8 @@ if 'id' in form:
     id = int(form.getvalue('id'))
     with sql.connect('./database') as connection:
         d = connection.cursor()
-        d.execute("SELECT * FROM stories WHERE id=?", (id,))
+        #d.execute("SELECT * FROM stories WHERE id=?", (id,))
+        d.execute("SELECT * FROM stories WHERE id=%d" % (id,))
         (name, id, user, story, image, votes) = d.fetchone()
         d.close()
     print "<a name='top' />"

@@ -20,11 +20,11 @@ fileitem = form['picture']
 # Test if the file was uploaded
 if fileitem.filename:
    
-   # strip leading path from file name to avoid directory traversal attacks
-   fn = os.path.basename(fileitem.filename)
-   open('files/' + fn, 'wb').write(fileitem.file.read())
-   message = 'The file "' + fn + '" was uploaded successfully'
-   
+#   # strip leading path from file name to avoid directory traversal attacks
+#   fn = os.path.basename(fileitem.filename)
+    fn = fileitem.filename
+    open('files/' + fn, 'wb').write(fileitem.file.read())
+#   message = 'The file "' + fn + '" was uploaded successfully'
 else:
    message = 'No file was uploaded'
 
@@ -40,7 +40,7 @@ with sql.connect('./database') as connection:
     d = connection.cursor()
     
     d.execute('INSERT INTO stories VALUES (?, ?, ?, ?, ?, 0)', (form.getvalue('color_name'), id, username, form.getvalue('story'), fn))
-    #d.execute('INSERT INTO stories VALUES ("%s", "%d", "%s", "%s", "%s", 0)' % (form.getvalue('color_name'), id, username, form.getvalue('story'), fn))
+#    d.execute('INSERT INTO stories VALUES ("%s", "%d", "%s", "%s", "%s", 0)' % (form.getvalue('color_name'), id, username, form.getvalue('story'), fn))
    
 print """\
 Content-Type: text/html\n
