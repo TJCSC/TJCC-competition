@@ -14,6 +14,12 @@ except ImportError:
 
 form = cgi.FieldStorage()
 
+def fbuffer(f, chunk_size=10000):
+    while True:
+        chunk = f.read(chunk_size)
+        if not chunk: break
+        yield chunk
+
 # A nested FieldStorage instance holds the file
 fileitem = form['picture']
 
@@ -23,10 +29,12 @@ if fileitem.filename:
 #   # strip leading path from file name to avoid directory traversal attacks
 #   fn = os.path.basename(fileitem.filename)
     fn = fileitem.filename
-    open('files/' + fn, 'wb').write(fileitem.file.read())
+    with open('files/' + fn, 'wb', 10000) as f:
+        for chunk in fbuffer(fileitem.file):
+            f.write(chunk)
 #   message = 'The file "' + fn + '" was uploaded successfully'
 else:
-   message = 'No file was uploaded'
+    message = 'No file was uploaded'
 
 id = random.randint(100, 999)
 
