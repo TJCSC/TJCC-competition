@@ -1,25 +1,70 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>FCC</title>
+    <link href="./assets/favicon.ico" rel="icon">
+    <link href="./assets/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        background: #F5F5F5;
+      }  
+    </style>
+</head>
 <body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="#">FCC</a>
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li><a href="./">Home</a></li>
+                        <li class="active"><a href="#">Submit</a></li>
+                        <li><a href="cgi/browse.cgi">Browse</a></li>
+                    </ul>
+                    <ul class="nav pull-right">
+                        <li><a href="cgi/settings.cgi"><i class="icon-cog icon-white"></i> Settings</a></li>
+                        <li class="divider-vertical"></li>
+                        <li><a href="cgi/login.cgi"><i class="icon-user icon-white"></i> Login</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
 
-<h1>Favorite Color Competition Upload Page!</h1>
+   <div class="container">
+        <h1>FCC Upload Page</h1>
+        <p>Submit your story about your favorite color here.</p>
 
-<form enctype='multipart/form-data' action='cgi/save_story.cgi' method='post'>
+        <form class="well" enctype='multipart/form-data' action='cgi/save_story.cgi' method='post'>
+            <fieldset>
 
-Color Name:
-<input type='text' name='color_name' value='' required/>
-<br />
+            <label>Color Name:</label>
+            <input type='text' name='color_name' value='' placeholder="Your favorite color" class="span3" required/>
 
-Story:<br />
-<textarea name='story' rows='10' cols='50' required></textarea>
-<br />
+            <label>Story:</label>
+            <textarea name='story' rows=10 class="span6" placeholder="Your story about your favorite color" required></textarea>
 
-Picture:
-<input type='file' name='picture' required>
-<br />
+            <label>Picture:
+            <input type='file' name='picture' required>
+            </label>
 
-<br />
-<input type='submit' value='upload' />
-</form>
+            <button type='submit' class="btn btn-primary">Submit</button>
+            </fieldset>
+        </form>
+        <hr>
+        <footer class="footer">
+            <p>&copy; Thomas Jefferson Computer Security Competition Club 2012</p>
+        </footer>
+    </div>
+
 
 </body>
 </html>
