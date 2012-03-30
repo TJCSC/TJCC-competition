@@ -1,5 +1,65 @@
-<html><body>
-        <a href='upload.html'>Submit a story</a>
-        <br />
-        <a href='cgi/browse.cgi'>Browse stories</a>
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>TJCC</title>
+    <link href="./assets/favicon.ico" rel="icon">
+    <link href="./assets/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        background: #F5F5F5;
+      }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="#">TJCC</a>
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="upload.html">Submit</a></li>
+                        <li><a href="cgi/browse.cgi">Browse</a></li>
+                    </ul>
+                    <ul class="nav pull-right">
+                        <li><a href="cgi/settings.cgi"><i class="icon-cog icon-white"></i> Settings</a></li>
+                        <li class="divider-vertical"></li>
+                        <li><a href="cgi/login.cgi"><i class="icon-user icon-white"></i> Login</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="hero-unit">
+        <h1>Welcome to TJCC</h1>
+        <p>The Thomas Jefferson Color Competition is an opportunity for you to tell the world about your favorite color. Write and submit a story describing why you love your color. Read other submissions and vote for the best stories.</p>
+        </div>
+        <div class="row show-grid">
+            <div class="span12" style="text-align:center;">
+            <h1>Get started now!</h1>
+                <div class="row">
+                    <div class="span2 offset4">
+                        <p><a class="btn btn-primary btn-large" href='upload.html'>Submit a story</a></p>
+                    </div>
+                    <div class="span2">
+                        <p><a class="btn btn-primary btn-large" href='cgi/browse.cgi'>Browse stories</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <footer>
+            <p>&copy; Thomas Jefferson Computer Security Competition Club 2012</p>
+        </footer>
+    </div>
+</body>
+</html>
