@@ -6,8 +6,8 @@ from shutil import rmtree
 
 def main():
 
-    if raw_input("Are you sure you want to do this? (y/n) ") != "y":
-        exit()
+    if raw_input("Are you sure you want to delete all stories and pictures? This cannot be undone! (y/n) ") != "y":
+        return 1
 
 #    call("rm files/*", shell=True)
     try:
