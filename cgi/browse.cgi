@@ -1,13 +1,24 @@
 #!/usr/bin/python
 
 import cgi
+import os
 import cgitb; cgitb.enable()
 import sqlite3 as sql
+from random import shuffle
+import thread
+
+sorted_rows = []
+
+def quick_sort(row):
+    global sorted_rows
+    from time import sleep
+    sleep(int(row[5]))
+    sorted_rows.append(row)
 
 form = cgi.FieldStorage()
 
-
-print "Content-Type: text/html\n"
+print "Content-Type: text/html"
+print
 print """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -114,10 +125,14 @@ else:
     with sql.connect('./database') as connection:
         d = connection.cursor()
         
-        d.execute("SELECT * FROM stories ORDER BY votes DESC")
-        
-    
+        d.execute("SELECT * FROM stories")
+
         rows = d.fetchall()
+
+        [thread.start_new_thread(quick_sort, (i,)) for i in rows]      
+        from time import sleep
+        sleep(max([row[5] for row in rows])+1)
+        rows = sorted_rows[::-1]
 		 
         rank = 1
         for i in range(len(rows)):
@@ -143,9 +158,9 @@ else:
 #    print "[<a href='#top'>top</a>]"
 
 print """<!--Footer -->
-    <hr>
     <div class="container">
         <footer class="footer">
+            <hr>
             <p>&copy; Thomas Jefferson Computer Security Competition Club 2012</p>
         </footer>
     </div>"""
