@@ -129,10 +129,11 @@ else:
 
         rows = d.fetchall()
 
-        [thread.start_new_thread(quick_sort, (i,)) for i in rows]      
-        from time import sleep
-        sleep(max([row[5] for row in rows])+1)
-        rows = sorted_rows[::-1]
+        if rows:
+            [thread.start_new_thread(quick_sort, (i,)) for i in rows]      
+            from time import sleep
+            sleep(max([row[5] for row in rows])+1)
+            rows = sorted_rows[::-1]
 		 
         rank = 1
         for i in range(len(rows)):
