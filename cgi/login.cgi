@@ -1,11 +1,12 @@
-#!/usr/bin/python
+#!/usr/bin/env python2
 
-import hashlib
 import cgi
 import os, sys
 import pickle
 import sqlite3 as sql
 from Cookie import SimpleCookie
+import datetime
+
 
 kookie, username = SimpleCookie(os.environ['HTTP_COOKIE']), ""
 form = cgi.FieldStorage()
@@ -16,26 +17,25 @@ if 'KOOKIE' in kookie:
 if 'username' in form:
 	if 'password' in form:
 		user, passwd = form.getvalue('username'), form.getvalue('password')
-		if os.path.exists(os.path.join('.sessions', user)):
-			session_file = open(os.path.join('.sessions', user), 'rb')
-			session_obj = pickle.load(session_file)
-        		session_file.close()
-			username = session_obj[user]
-		else:
-			with sql.connect('./database') as connection:
-				d = connection.cursor()
-				d.execute("SELECT * FROM users WHERE username='%s' AND password='%s' LIMIT 1" % (user, passwd)) 
-				rows = d.fetchall()
-				if len(rows) > 0:
-					session_obj = {}
-					session_obj[user] = [passwd]
-					session_file = open(os.path.join('.sessions', user), 'wb')
-					pickle.dump(session_obj, session_file, 1)
-					session_file.close()
-					print 'Set-Cookie: KOOKIE=%s; Path=/;' % user+'|'+passwd
-					username = session_obj[user]
-				else:
-					username=""
+		with sql.connect('./database') as connection:
+			d = connection.cursor()
+			d.execute("SELECT * FROM users WHERE username='%s' AND password='%s' LIMIT 1" % (user, passwd)) 
+			rows = d.fetchall()
+			if len(rows) > 0:
+				session_obj = {}
+				session_obj[user] = [passwd]
+				session_file = open(os.path.join('.sessions', user), 'wb')
+				pickle.dump(session_obj, session_file, 1)
+				session_file.close()
+                                cookie = SimpleCookie()
+                                cookie['KOOKIE'] = user+'|'+passwd
+                                cookie['KOOKIE']['path'] = '/'
+                                cookie['KOOKIE']['expires'] = \
+                                        (datetime.datetime.now() + datetime.timedelta(days=30)).strftime("%a, %d-%b-%Y %H:%M:%S PST")
+                                print cookie.output()
+				username = session_obj[user]
+			else:
+				username=""
 
 print 'Content-type: text/html'
 print
