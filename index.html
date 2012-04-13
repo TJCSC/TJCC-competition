@@ -22,15 +22,41 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <a class="brand" href="#">FCC</a>
+                <a class="brand" href="/">FCC</a>
                 <div class="nav-collapse">
                     <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="upload.html">Submit</a></li>
-                        <li><a href="cgi/browse.cgi">Browse</a></li>
+                        <li class="active"><a href="/">Home</a></li>
+                        <li><a href="/upload.html">Submit</a></li>
+                        <li><a href="/cgi/browse.cgi">Browse</a></li>
                     </ul>
                     <ul class="nav pull-right">
-                        <li><a href="cgi/login.cgi"><i class="icon-user icon-white"></i> Login</a></li>
+                        <script type="text/javascript">
+                            function getCookie(name)
+                            {
+                                var i, x, y, ARRcookies = document.cookie.split(";");
+                                for(i=0;i<ARRcookies.length;i++)
+                                {
+                                    x=ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+                                    y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+                                    x=x.replace(/^\s+|\s+$/g,"");
+                                    if(x==name)
+                                    {
+                                        return unescape(y);
+                                    }
+                                }
+                            }
+                            document.write("<li><a href=\"/cgi/login.cgi\"><i class=\"icon-user icon-white\"></i> ");
+                            var username=getCookie("KOOKIE").split("_")[0];
+                            if(username != null && username != "")
+                            {
+                                document.write(username);
+                            }
+                            else
+                            {
+                                document.write("Login");
+                            }
+                            document.write("</a></li>");
+                        </script>
                     </ul>
                 </div>
             </div>
