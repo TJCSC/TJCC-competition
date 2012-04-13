@@ -32,7 +32,6 @@ if fileitem.filename:
     with open('files/' + fn, 'wb', 10000) as f:
         for chunk in fbuffer(fileitem.file):
             f.write(chunk)
-#   message = 'The file "' + fn + '" was uploaded successfully'
 else:
     message = 'No file was uploaded'
 
@@ -42,13 +41,20 @@ cookie = SimpleCookie(os.environ['HTTP_COOKIE'])
 if 'KOOKIE' in cookie:
     username = cookie['KOOKIE'].value.split('|')[0]
 else:
-    username = 'guest'
+    username = 'Guest'
 
 with sql.connect('./database') as connection:
     d = connection.cursor()
     
     d.execute('INSERT INTO stories VALUES (?, ?, ?, ?, ?, 0)', (form.getvalue('color_name'), id, username, form.getvalue('story'), fn))
-#    d.execute('INSERT INTO stories VALUES ("%s", "%d", "%s", "%s", "%s", 0)' % (form.getvalue('color_name'), id, username, form.getvalue('story'), fn))
+#    d.execute('INSERT INTO stories VALUES ("%s", %d, "%s", "%s", "%s", 0)' % (form.getvalue('color_name'), id, username, form.getvalue('story'), fn))
+    if username != 'Guest':
+        #d.execute('SELECT stories FROM users WHERE username=?', (username,))
+        d.execute('SELECT stories FROM users WHERE username="%s"' % (username,))
+        stories = eval(d.fetchone()[0])
+        stories.append(id)
+        #d.execute('UPDATE users SET stories=? WHERE username=?', (str(stories), username))
+        d.execute('UPDATE users SET stories="%s" WHERE username="%s"' % (str(stories), username))
    
 print """\
 Content-Type: text/html\n
