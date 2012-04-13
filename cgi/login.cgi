@@ -126,6 +126,7 @@ else:
 			</fieldset>
 
 			<button type='submit' class='btn btn-primary'>Submit</button>
+            <p><br>Don't have an account? <a href='/cgi/register.cgi'>Register one here.</a></p>
 	 	</form>
 	 </div>
 """
