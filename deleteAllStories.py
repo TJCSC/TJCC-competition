@@ -17,6 +17,13 @@ def main():
     else:
         print 'Deleted pictures'
 
+    try:
+        rmtree("./.sessions/")
+    except OSError:
+        print 'Error: .sessions/ did not exist'
+    else:
+        print 'Deleted sessions'
+
     with sql.connect('./database') as connection:
         d = connection.cursor()
         

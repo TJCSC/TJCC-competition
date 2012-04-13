@@ -15,6 +15,9 @@ def init():
     if not os.path.exists("./files"):
         print "Creating ./files directory"
         os.makedirs("./files")
+    if not os.path.exists("./.sessions"):
+        print "Creating ./.sessions directory"
+        os.makedirs("./.sessions")
 
 init()
 
