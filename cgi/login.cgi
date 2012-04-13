@@ -95,17 +95,21 @@ if success:
     <div class='container'>
         <div class='alert alert-success'>
             <h1>Logged in successfully.</h1>
-            <p>You will be automatically redirected in 3 seconds, or <a href="/">click here</a>.</p>
+            <p>You will be automatically redirected in 3 seconds, or <a href='/'>click here</a>.</p>
         </div>
     </div>
 """
 elif 'KOOKIE' in kookie:
-    print "    <META HTTP-EQUIV='refresh' CONTENT='5;URL=/'>"
     print """<!--Info -->
     <div class='container'>
         <div class='alert alert-error'>
-            <h1>Already logged in.</h1>
-            <p>You will be automatically redirected in 5 seconds, or <a href="/">click here</a>.</p>
+            <h1>You are already logged in.</h1>
+            <p><a href='/'>Click here to return to the front page.</a></p>
+            <div class='row'>
+                    <div class='span1'>
+                        <p><a class='btn btn-danger btn-large' href='/cgi/logout.cgi'>Logout</a></p>
+                    </div>
+            </div>
         </div>
     </div>
 """
