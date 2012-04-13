@@ -52,11 +52,8 @@ print """<!DOCTYPE html>
         padding-bottom: 40px;
         background: #FAFAFA;
       }   
-    </style>"""
-if 'KOOKIE' in kookie:
-	print "    <META HTTP-EQUIV='refresh' CONTENT='5;URL=/'>"
-elif success:
-	print "    <META HTTP-EQUIV='refresh' CONTENT='3;URL=/'>"
+    </style>
+"""
 print "</head>"
 print "<body>"
 print """<!--Navbar -->
@@ -91,25 +88,27 @@ print """<!--Header -->
     </div>
 """ 
 
-if 'KOOKIE' in kookie:
-	cookie = SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value
-	username = cookie.split("|")[0]
-	password = cookie.split("|")[1]
-
-	print """<!--Info -->
-    <div class='container'>
-        <div class='alert alert-error'>
-            <h1>Error: Already logged in.</h1>
-            <p>You will be automatically redirected in 5 seconds, or <a href="/">click here</a>.</p>
-        </div>
-    </div>
-"""
-elif success:
+if success:
+	print "    <META HTTP-EQUIV='refresh' CONTENT='3;URL=/'>"
 	print """<!--Info -->
     <div class='container'>
         <div class='alert alert-success'>
             <h1>Logged in successfully.</h1>
             <p>You will be automatically redirected in 3 seconds, or <a href="/">click here</a>.</p>
+        </div>
+    </div>
+"""
+elif 'KOOKIE' in kookie:
+	cookie = SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value
+	username = cookie.split("|")[0]
+	password = cookie.split("|")[1]
+
+	print "    <META HTTP-EQUIV='refresh' CONTENT='5;URL=/'>"
+	print """<!--Info -->
+    <div class='container'>
+        <div class='alert alert-error'>
+            <h1>Error: Already logged in.</h1>
+            <p>You will be automatically redirected in 5 seconds, or <a href="/">click here</a>.</p>
         </div>
     </div>
 """
