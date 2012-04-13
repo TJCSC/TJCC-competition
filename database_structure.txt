@@ -1,10 +1,9 @@
 user
-	id (int)
 	username (text)
 	password (text)  #plain text
-	name (text)
-	stories (text)
-# iah ave to coment it
+	stories (text)   #in python list format
+        votedFor (text)  #also this
+
 stories
         name (text)
         id (int)
