@@ -2,6 +2,7 @@
 import cgi
 import cgitb; cgitb.enable()
 import sqlite3 as sql
+import sys, os
 from Cookie import SimpleCookie
 
 print "Content-Type: text/html\n"
@@ -11,7 +12,7 @@ form = cgi.FieldStorage()
 
 id = int(form.getvalue('id'))
 
-cookie = SimpleCookie(os.environ(['HTTP_COOKIE']))
+cookie = SimpleCookie(os.environ['HTTP_COOKIE'])
 if 'KOOKIE' in cookie:
     username = cookie['KOOKIE'].value.split('|')[0]
     with sql.connect('./database') as connection:
@@ -21,7 +22,7 @@ if 'KOOKIE' in cookie:
         d.execute('SELECT votedFor FROM users WHERE username="%s"' % (username,))
         votedFor = eval(d.fetchone()[0])
         if id in votedFor:
-            print 'You have already voted for this story.'
+            print 'You have already voted for this story.<br />'
         else:
             votedFor.append(id)
             #d.execute('UPDATE users SET votedFor=? WHERE username=?', (votedFor, username))
