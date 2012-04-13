@@ -39,7 +39,7 @@ id = random.randint(100, 999)
 
 cookie = SimpleCookie(os.environ['HTTP_COOKIE'])
 if 'KOOKIE' in cookie:
-    username = cookie['KOOKIE'].value.split('|')[0]
+    username = cookie['KOOKIE'].value.split('_')[0]
 else:
     username = 'Guest'
 

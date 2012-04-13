@@ -16,7 +16,7 @@ if 'username' in form and 'password' in form and 'verify' in form:
     password = form.getvalue('password')
     verify = form.getvalue('verify')
     if verify != password:
-        print "Username: <input type='text' name='username' value='%s' /><br />" % (username,)
+        print "Username: <input type='text' name='username' value='%s' required/><br />" % (username,)
         print 'Passwords do not match <br />'
     else:
         with sql.connect('./database') as connection:
@@ -25,7 +25,7 @@ if 'username' in form and 'password' in form and 'verify' in form:
             d.execute('SELECT * FROM users WHERE username="%s" LIMIT 1' % (username,))
             if len(d.fetchall()) > 0:
                 print 'Username is already taken <br />'
-                print "Username: <input type='text' name='username' value='' /><br />"
+                print "Username: <input type='text' name='username' value='' required/><br />"
             else:
                 d.execute('INSERT INTO users VALUES ("%s", "%s", "[]", "[]")' % (username, password))
         
@@ -34,9 +34,9 @@ if 'username' in form and 'password' in form and 'verify' in form:
                 print '<meta http-equiv="REFRESH" content="0;login.cgi?username=%s&password=%s">' % (username, password)
 
 else:
-    print "Username: <input type='text' name='username' value='' /> <br />"
-print "Password: <input type='text' name='password' value='' /> <br />"
-print "Verify Password: <input type='text' name='verify' value='' /> <br />"
+    print "Username: <input type='text' name='username' value='' required/> <br />"
+print "Password: <input type='text' name='password' value='' required/> <br />"
+print "Verify Password: <input type='text' name='verify' value='' required/> <br />"
 print "<br />"
 print "<input type='submit' value='submit form' />"
 print "</form>"

@@ -14,7 +14,7 @@ id = int(form.getvalue('id'))
 
 cookie = SimpleCookie(os.environ['HTTP_COOKIE'])
 if 'KOOKIE' in cookie:
-    username = cookie['KOOKIE'].value.split('|')[0]
+    username = cookie['KOOKIE'].value.split('_')[0]
     with sql.connect('./database') as connection:
         d = connection.cursor()
     
