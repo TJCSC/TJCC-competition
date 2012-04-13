@@ -6,6 +6,7 @@ import cgitb; cgitb.enable()
 import sqlite3 as sql
 from random import shuffle
 import thread
+from Cookie import SimpleCookie
 
 sorted_rows = []
 
