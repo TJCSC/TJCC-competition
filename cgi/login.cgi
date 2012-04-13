@@ -107,7 +107,7 @@ elif 'KOOKIE' in kookie:
 	print """<!--Info -->
     <div class='container'>
         <div class='alert alert-error'>
-            <h1>Error: Already logged in.</h1>
+            <h1>Already logged in.</h1>
             <p>You will be automatically redirected in 5 seconds, or <a href="/">click here</a>.</p>
         </div>
     </div>
