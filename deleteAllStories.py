@@ -20,7 +20,8 @@ def main():
     with sql.connect('./database') as connection:
         d = connection.cursor()
         
-        d.execute("DELETE FROM stories")
+        d.execute('DELETE FROM stories')
+        d.execute('UPDATE users SET stories="[]", votedFor="[]"')
     print 'Deleted database entries'
 
     print 'Done!'
