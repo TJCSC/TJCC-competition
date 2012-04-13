@@ -8,8 +8,9 @@ from random import shuffle
 import thread
 from Cookie import SimpleCookie
 
-sorted_rows = []
+kookie, username = SimpleCookie(os.environ['HTTP_COOKIE']), ""
 
+sorted_rows = []
 def quick_sort(row):
     global sorted_rows
     from time import sleep
@@ -25,8 +26,8 @@ print """<!DOCTYPE html>
 <head>
     <meta charset="utf-8">
     <title>FCC</title>
-    <link href="../assets/favicon.ico" rel="icon">
-    <link href="../assets/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/favicon.ico" rel="icon">
+    <link href="/assets/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -46,23 +47,21 @@ print """    <!--Navbar -->
                     <span class='icon-bar'></span>
                     <span class='icon-bar'></span>
                 </a>
-                <a class='brand' href='#'>FCC</a>
+                <a class='brand' href='/'>FCC</a>
                 <div class='nav-collapse'>
                     <ul class='nav'>
-                        <li><a href='../'>Home</a></li>
-                        <li><a href='../upload.html'>Submit</a></li>
-                        <li class='active'><a href='../cgi/browse.cgi'>Browse</a></li>
+                        <li><a href='/'>Home</a></li>
+                        <li><a href='/upload.html'>Submit</a></li>
+                        <li class='active'><a href='/cgi/browse.cgi'>Browse</a></li>
                     </ul>
                     <ul class='nav pull-right'>
-                        <li><a href='./settings.cgi'><i class='icon-cog icon-white'></i> Settings</a></li>
-                        <li class='divider-vertical'></li>
-                        <li><a href='./login.cgi'><i class='icon-user icon-white'></i> Login</a></li>
+                        <li><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i> %s</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-""" 
+""" % (SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('|')[0] if 'KOOKIE' in kookie else 'Login')
 
 if 'id' in form:
     id = int(form.getvalue('id'))
@@ -72,13 +71,11 @@ if 'id' in form:
         d.execute("SELECT * FROM stories WHERE id=%d" % (id,))
         (name, id, user, story, image, votes) = d.fetchone()
         d.close()
-#    print "<a name='top' /></a>"
     print """<!--Header -->
     <div class='container'>
         <h1>%s</h1>
         <h4>By %s</h4>
     </div>""" % (name, user)
-#    print "<h3>%s by %s</h3>" % (name, user)
 
     print """<!--Main Content -->
     <div class='container'>
@@ -87,8 +84,6 @@ if 'id' in form:
         <br>
         <p>%s</p>
     </div>""" % (image,story)
-#   print "<p>%s</p>" % (story)
-#    print "<img src='../files/%s'><br>" % (image)
     print """<!--Vote Button -->
     <div class='container'>
         <form enctype='multipart/form-data' action='vote.cgi' method='post'>
@@ -97,13 +92,6 @@ if 'id' in form:
      </div>
      </form>""" % (id)
 
-#    print "<form enctype='multipart/form-data' action='vote.cgi' method='post'>"
-#    print "<input type='hidden' name='id' value=%s />" % (id)
-#    print "<input type='image' src='../assets/img/vote.jpg' alt='Vote' /></div>"
-#    print "</form>"
-#    print "[<a href='../index.html'>home</a>]"
-#    print "[<a href='../cgi/browse.cgi'>browse</a>]"
-#    print "[<a href='#top'>top</a>]"
 else:
     print """<!--Header -->
     <div class='container'>
@@ -111,8 +99,6 @@ else:
         <p>View and vote on your favorite stories here.</p>
     </div>
     """
-
-#    print "[<a name='top' href='../index.html'>home</a>]<br><br>"
     print """<!--Table -->
     <div class='container'>
         <div class='row'>
@@ -157,7 +143,6 @@ else:
             </div>
         </div>
     </div>"""
-#    print "[<a href='#top'>top</a>]"
 
 print """<!--Footer -->
     <div class="container">
