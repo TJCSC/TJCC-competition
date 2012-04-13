@@ -16,29 +16,29 @@ form = cgi.FieldStorage()
 success = False
 
 if 'username' in form and 'password' in form:
-	user, passwd = form.getvalue('username'), form.getvalue('password')
-	with sql.connect('./database') as connection:
-		d = connection.cursor()
-		d.execute("SELECT * FROM users WHERE username='%s' AND password='%s' LIMIT 1" % (user, passwd)) 
-		rows = d.fetchall()
-		if len(rows) > 0:
-			session_obj = {}
-			session_obj[user] = [passwd]
-			session_file = open(os.path.join('.sessions', user), 'wb')
-			pickle.dump(session_obj, session_file, 1)
-			session_file.close()
-			cookie = SimpleCookie()
-			cookie['KOOKIE'] = user+'|'+passwd
-			cookie['KOOKIE']['path'] = '/'
-			cookie['KOOKIE']['expires'] = \
+    user, passwd = form.getvalue('username'), form.getvalue('password')
+    with sql.connect('./database') as connection:
+        d = connection.cursor()
+        d.execute("SELECT * FROM users WHERE username='%s' AND password='%s' LIMIT 1" % (user, passwd)) 
+        rows = d.fetchall()
+        if len(rows) > 0:
+            session_obj = {}
+            session_obj[user] = [passwd]
+            session_file = open(os.path.join('.sessions', user), 'wb')
+            pickle.dump(session_obj, session_file, 1)
+            session_file.close()
+            cookie = SimpleCookie()
+            cookie['KOOKIE'] = user+'_'+passwd
+            cookie['KOOKIE']['path'] = '/'
+            cookie['KOOKIE']['expires'] = \
                   (datetime.datetime.now() + datetime.timedelta(days=30)).strftime("%a, %d-%b-%Y %H:%M:%S PST")
-			print cookie.output()
-			success = True
-			username = session_obj[user]
-		else:
-			username=""
-                connection.commit()
-                d.close()
+            print cookie.output()
+            success = True
+            username = session_obj[user]
+        else:
+            username=""
+            connection.commit()
+            d.close()
 print
 print """<!DOCTYPE html>
 <html lang="en">
@@ -80,7 +80,7 @@ print """<!--Navbar -->
             </div>
         </div>
     </div>
-""" % (SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('|')[0] if 'KOOKIE' in kookie else user if success else 'Login')
+""" % (SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else user if success else 'Login')
 
 print """<!--Header -->
     <div class='container'>
@@ -90,8 +90,8 @@ print """<!--Header -->
 """ 
 
 if success:
-	print "    <META HTTP-EQUIV='refresh' CONTENT='3;URL=/'>"
-	print """<!--Info -->
+    print "    <META HTTP-EQUIV='refresh' CONTENT='3;URL=/'>"
+    print """<!--Info -->
     <div class='container'>
         <div class='alert alert-success'>
             <h1>Logged in successfully.</h1>
@@ -100,12 +100,8 @@ if success:
     </div>
 """
 elif 'KOOKIE' in kookie:
-	cookie = SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value
-	username = cookie.split("|")[0]
-	password = cookie.split("|")[1]
-
-	print "    <META HTTP-EQUIV='refresh' CONTENT='5;URL=/'>"
-	print """<!--Info -->
+    print "    <META HTTP-EQUIV='refresh' CONTENT='5;URL=/'>"
+    print """<!--Info -->
     <div class='container'>
         <div class='alert alert-error'>
             <h1>Already logged in.</h1>
@@ -114,21 +110,21 @@ elif 'KOOKIE' in kookie:
     </div>
 """
 else:
-	print """<!--Login form -->
-	<div class='container'>
-		<form class='well' method='post'>
-			<fieldset>
-			<label>Username:</label>
-			<input type='text' name='username' value='' placeholder='Enter your username here' class='span3' required/> <br />
+    print """<!--Login form -->
+    <div class='container'>
+        <form class='well' method='post'>
+            <fieldset>
+            <label>Username:</label>
+            <input type='text' name='username' value='' placeholder='Enter your username here' class='span3' required/> <br />
 
-			<label>Password:</label>
-			<input type='password' name='password' value='' placeholder='Enter your password here' class='span3' required/> <br />
-			</fieldset>
+            <label>Password:</label>
+            <input type='password' name='password' value='' placeholder='Enter your password here' class='span3' required/> <br />
+            </fieldset>
 
-			<button type='submit' class='btn btn-primary'>Submit</button>
+            <button type='submit' class='btn btn-primary'>Submit</button>
             <p><br>Don't have an account? <a href='/cgi/register.cgi'>Register one here.</a></p>
-	 	</form>
-	 </div>
+         </form>
+     </div>
 """
 
 print """<!--Footer -->

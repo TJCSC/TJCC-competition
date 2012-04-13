@@ -46,8 +46,8 @@ else:
 with sql.connect('./database') as connection:
     d = connection.cursor()
     
-    d.execute('INSERT INTO stories VALUES (?, ?, ?, ?, ?, 0)', (form.getvalue('color_name'), id, username, form.getvalue('story'), fn))
-#    d.execute('INSERT INTO stories VALUES ("%s", %d, "%s", "%s", "%s", 0)' % (form.getvalue('color_name'), id, username, form.getvalue('story'), fn))
+    #d.execute('INSERT INTO stories VALUES (?, ?, ?, ?, ?, 0)', (form.getvalue('color_name'), id, username, form.getvalue('story'), fn))
+    d.execute('INSERT INTO stories VALUES ("%s", %d, "%s", "%s", "%s", 0)' % (form.getvalue('color_name'), id, username, form.getvalue('story'), fn))
     if username != 'Guest':
         #d.execute('SELECT stories FROM users WHERE username=?', (username,))
         d.execute('SELECT stories FROM users WHERE username="%s"' % (username,))

@@ -14,7 +14,7 @@ sorted_rows = []
 def quick_sort(row):
     global sorted_rows
     from time import sleep
-    sleep(int(row[5]))
+    sleep(int(row[5])/5.0)
     sorted_rows.append(row)
 
 form = cgi.FieldStorage()
@@ -61,7 +61,7 @@ print """    <!--Navbar -->
             </div>
         </div>
     </div>
-""" % (SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('|')[0] if 'KOOKIE' in kookie else 'Login')
+""" % (SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else 'Login')
 
 if 'id' in form:
     id = int(form.getvalue('id'))
@@ -119,7 +119,7 @@ else:
         if rows:
             [thread.start_new_thread(quick_sort, (i,)) for i in rows]      
             from time import sleep
-            sleep(max([row[5] for row in rows])+1)
+            sleep((max([row[5] for row in rows])+1)/5.0)
             rows = sorted_rows[::-1]
 		 
         rank = 1
