@@ -51,7 +51,7 @@ print """<!--Navbar -->
             </div>
         </div>
     </div>
-""" % (SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('|')[0] if 'KOOKIE' in kookie else 'Login')
+""" % (SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else 'Login')
 
 
 print """<!--Header -->
@@ -97,8 +97,8 @@ if success:
 """
 elif 'KOOKIE' in kookie:
 	cookie = SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value
-	username = cookie.split("|")[0]
-	password = cookie.split("|")[1]
+	username = cookie.split("_")[0]
+	password = cookie.split("_")[1]
 
 	print "    <META HTTP-EQUIV='refresh' CONTENT='5;URL=/'>"
 	print """<!--Info -->
