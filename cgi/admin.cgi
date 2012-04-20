@@ -56,7 +56,6 @@ print """    <!--Navbar -->
         </div>
     </div>
 """ % (SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else 'Login')
-print form
 
 if 'action' in form:
     action = (form.getvalue('action'))
