@@ -1,12 +1,12 @@
-TJ Cybersecurity Competition (You were adopted)
+TJ Cybersecurity Competition - "Favorite Color Competition"
 
-To use: ./server.py
-Browse to http://localhost:8080 to try it out.
+To use, run: ./server.py
+Browse to http://localhost:8080 to view the website.
 
-NOTE:
+Written for python 2.7, and may require SQLite 3.
 
-This is purposely made for a Cybersecurity competition, so it is filled with security holes. 
+WARNING:
+
+This is written for a cybersecurity competition, so there are numerous security issues.
 '''DO NOT USE THIS ON A PRODUCTION SYSTEM, OR AS THE BASE FOR A PRODUCTION SYSTEM.'''
 
-Cyrus was adopted
-also Ben
