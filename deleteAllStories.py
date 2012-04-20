@@ -29,7 +29,7 @@ def main():
         
         d.execute('DELETE FROM stories')
         d.execute('UPDATE users SET stories="[]", votedFor="[]"')
-        d.execute('DELETE FROM users WHERE username!="herp" AND username!="test"')
+        d.execute('DELETE FROM users WHERE username!="herp" AND username!="test" AND username!="admin"')
 
         connection.commit()
         d.close()
