@@ -58,9 +58,18 @@ print """    <!--Navbar -->
         </div>
     </div>
 """ % (SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else 'Login')
-form = cgi.FieldStorage()
-print form
 
+if 'did' in form:
+    idlist = (form.getvalue('did'))
+    if type(idlist) == str:
+        idlist = [idlist]
+    for id in idlist:
+        id = int(id)
+
+        with sql.connect('./database') as connection:
+            d = connection.cursor()
+            d.execute("DELETE FROM stories WHERE id=%d" % (id,))
+            d.close()
 
 if not 'KOOKIE' in kookie or not kookie['KOOKIE'].value.split('_')[0] == 'admin':
     print "    <META HTTP-EQUIV='refresh' CONTENT='5;URL=/'>"
@@ -72,35 +81,6 @@ if not 'KOOKIE' in kookie or not kookie['KOOKIE'].value.split('_')[0] == 'admin'
         </div>
     </div>
 """
-elif 'id' in form:
-    id = int(form.getvalue('id'))
-    with sql.connect('./database') as connection:
-        d = connection.cursor()
-        #d.execute("SELECT * FROM stories WHERE id=?", (id,))
-        d.execute("SELECT * FROM stories WHERE id=%d" % (id,))
-        (name, id, user, story, image, votes) = d.fetchone()
-        d.close()
-    print """<!--Header -->
-    <div class='container'>
-        <h1>%s</h1>
-        <h4>By %s</h4>
-    </div>""" % (name, user)
-
-    print """<!--Main Content -->
-    <div class='container'>
-        <br>
-        <img src ='../files/%s'>
-        <br>
-        <p>%s</p>
-    </div>""" % (image,story)
-    print """<!--Vote Button -->
-    <div class='container'>
-        <form enctype='multipart/form-data' action='vote.cgi' method='post'>
-        <input type='hidden' name='id' value=%s />
-        <input type='image' src='../assets/img/vote.jpg' alt='Vote' />
-     </div>
-     </form>""" % (id)
-
 else:
     print """<!--Header -->
     <div class='container'>
@@ -112,13 +92,12 @@ else:
     <div class='container'>
         <div class='row'>
             <div class='span6'>
-<form method='post'> 
-                <table class='table table-bordered table-condensed' style='background: #FFFFFF;' >
-                    <thead>
-                        <tr><th>Rank</th><th>Name</th><th>Author</th><th>Votes</th><th>Delete?</th></tr>
-                    </thead>
-                    <tbody>
-                        <fieldset>"""
+                <form method='post'> 
+                    <table class='table table-bordered table-condensed' style='background: #FFFFFF;' >
+                        <thead>
+                            <tr><th>Rank</th><th>Name</th><th>Author</th><th>Votes</th><th>Delete?</th></tr>
+                        </thead>
+                        <tbody>"""
     
     with sql.connect('./database') as connection:
         d = connection.cursor()
@@ -133,7 +112,7 @@ else:
 		 
         rank = 1
         for i in range(len(rows)):
-            row  = ""
+            row  = "    "
             row += "<tr>"
             if rows[i][5] != rows[i-1][5]:
                 rank = i+1
@@ -142,18 +121,16 @@ else:
                     %s</a></td>" % (rows[i][1], rows[i][0])
             row += "<td>%s</td>" % (rows[i][2])
             row += "<td>%d</td>" % (rows[i][5])
-            #row += "<td><a href='/cgi/admin.cgi?did=%d' class='btn btn-mini btn-danger'>Delete</a></form></td>" % (rows[i][1])
-            row += "<td><input type='checkbox' name='B%d' value='A%d' /></td>" % (rows[i][1],rows[i][1])
+            row += "<td><input type='checkbox' name='did' value='%d' /></td>" % (rows[i][1])
             row += "</tr>"
             print "    "*6+row
         
         d.close()
     
-    print """                   </fieldset> 
-                            </tbody>
-                </table>
-                            <button type='submit' class='btn btn-danger'>Delete selected stories</button>
-                                </form>
+    print """                        </tbody>
+                        </table>
+                    <button type='submit' class='btn btn-danger pull-right'>Delete selected stories</button>
+                </form>
             </div>
         </div>
     </div>"""
