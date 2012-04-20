@@ -9,6 +9,7 @@ import thread
 from Cookie import SimpleCookie
 
 kookie, username = SimpleCookie(os.environ['HTTP_COOKIE']), ""
+username = SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else 'Guest'
 
 sorted_rows = []
 def quick_sort(row):
@@ -54,15 +55,16 @@ print """    <!--Navbar -->
                         <li><a href='/upload.html'>Submit</a></li>
                         <li class='active'><a href='/cgi/browse.cgi'>Browse</a></li>
                     </ul>
-                    <ul class='nav pull-right'>
-                        <li><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i> %s</a></li>
+                    <ul class='nav pull-right'>"""
+if username == "admin":
+    print "                        <li><a href='/cgi/admin.cgi'>Admin</a></li>"
+print """                        <li><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i> %s</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-""" % (SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else 'Login')
-
+""" % username
 if 'id' in form:
     id = int(form.getvalue('id'))
     with sql.connect('./database') as connection:

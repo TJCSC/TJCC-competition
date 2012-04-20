@@ -30,29 +30,32 @@
                         <li><a href="/cgi/browse.cgi">Browse</a></li>
                     </ul>
                     <ul class="nav pull-right">
-                        <li><a href="/cgi/login.cgi"><i class="icon-user icon-white"></i> 
-                            <script type="text/javascript">
-                                function getCookie(name)
-                                {
-                                    var i, x, y, ARRcookies = document.cookie.split(";");
-                                    for(i=0;i<ARRcookies.length;i++) {
-                                        x=ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
-                                        y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-                                        x=x.replace(/^\s+|\s+$/g,"");
-                                        if(x==name) return unescape(y);
+                        <script type="text/javascript">
+                            function getCookie(name)
+                            {
+                                var i, x, y, ARRcookies = document.cookie.split(";");
+                                for(i=0;i<ARRcookies.length;i++) {
+                                    x=ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+                                    y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+                                    x=x.replace(/^\s+|\s+$/g,"");
+                                    if(x==name) return unescape(y);
+                                }
+                                return null;
+                            }
+                            var kookie=getCookie("KOOKIE")
+                            if(kookie!=undefined) {
+                                var username=kookie.split("_")[0];
+                                if(username != null && username != "")
+                                    if(username == 'admin')
+                                    {
+                                        document.write("<li><a href='/cgi/admin.cgi'>Admin</a></li>");
+                                        document.write("<li class='divider-vertical'></li>");
                                     }
-                                    return null;
-                                }
-                                var kookie=getCookie("KOOKIE")
-                                if(kookie!=undefined) {
-                                    var username=kookie.split("_")[0];
-                                    if(username != null && username != "")
-                                        document.write(username);
-                                }
-                                else
-                                    document.write("Login");
-                            </script>
-                         </a></li>
+                                document.write("<li><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i>"+username+"</a></li>");
+                            }
+                            else
+                                document.write("<li><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i>Login</a></li>");
+                        </script>
                     </ul>
                 </div>
             </div>
