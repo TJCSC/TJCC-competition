@@ -4,8 +4,6 @@ import cgi
 import os
 import cgitb; cgitb.enable()
 import sqlite3 as sql
-from random import shuffle
-import thread
 from Cookie import SimpleCookie
 
 kookie, username = SimpleCookie(os.environ['HTTP_COOKIE']), ""
@@ -58,18 +56,32 @@ print """    <!--Navbar -->
         </div>
     </div>
 """ % (SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else 'Login')
+print form
 
-if 'did' in form:
-    idlist = (form.getvalue('did'))
-    if type(idlist) == str:
-        idlist = [idlist]
-    for id in idlist:
-        id = int(id)
+if 'action' in form:
+    action = (form.getvalue('action'))
+    if action == 'delete':
+        idlist = (form.getvalue('did'))
+        if type(idlist) == str:
+            idlist = [idlist]
+        for id in idlist:
+            id = int(id)
 
-        with sql.connect('./database') as connection:
-            d = connection.cursor()
-            d.execute("DELETE FROM stories WHERE id=%d" % (id,))
-            d.close()
+            with sql.connect('./database') as connection:
+                d = connection.cursor()
+                d.execute("DELETE FROM stories WHERE id=%d" % (id,))
+                d.close()
+    elif action == 'vote':
+        for v in form:
+            if v.split('.')[0] == 'vid':
+                id = int(v.split('.')[1])
+                votes = int(form.getvalue(v))
+                with sql.connect('./database') as connection:
+                    d = connection.cursor()
+                    d.execute("UPDATE stories SET votes=%d WHERE id=%d" % (votes,id,))
+                    d.close()
+                
+        
 
 if not 'KOOKIE' in kookie or not kookie['KOOKIE'].value.split('_')[0] == 'admin':
     print "    <META HTTP-EQUIV='refresh' CONTENT='5;URL=/'>"
@@ -92,7 +104,7 @@ else:
     <div class='container'>
         <div class='row'>
             <div class='span6'>
-                <form method='post'> 
+                <form method='post' class='form-horizontal'> 
                     <table class='table table-bordered table-condensed' style='background: #FFFFFF;' >
                         <thead>
                             <tr><th>Rank</th><th>Name</th><th>Author</th><th>Votes</th><th>Delete?</th></tr>
@@ -102,13 +114,10 @@ else:
     with sql.connect('./database') as connection:
         d = connection.cursor()
         
-        d.execute("SELECT * FROM stories")
+        d.execute("SELECT * FROM stories ORDER BY votes DESC")
 
         rows = d.fetchall()
 
-        if rows:
-            list.sort(rows)
-            rows = rows[::-1]
 		 
         rank = 1
         for i in range(len(rows)):
@@ -120,7 +129,7 @@ else:
             row += "<td><a href='browse.cgi?id=%d'>\
                     %s</a></td>" % (rows[i][1], rows[i][0])
             row += "<td>%s</td>" % (rows[i][2])
-            row += "<td>%d</td>" % (rows[i][5])
+            row += "<td><input type='text' name='vid.%d' placeholder='%d' class='input-mini' style='height: 10px; text-align: right' /></td>" % (rows[i][1],rows[i][5])
             row += "<td><input type='checkbox' name='did' value='%d' /></td>" % (rows[i][1])
             row += "</tr>"
             print "    "*6+row
@@ -129,7 +138,8 @@ else:
     
     print """                        </tbody>
                         </table>
-                    <button type='submit' class='btn btn-danger pull-right'>Delete selected stories</button>
+                    <button type='submit' name='action' value='vote' class='btn btn-primary pull-left'>Update vote totals</button>
+                    <button type='submit' name='action' value='delete' class='btn btn-danger pull-right'>Delete selected stories</button>
                 </form>
             </div>
         </div>
