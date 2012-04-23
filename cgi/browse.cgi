@@ -58,6 +58,7 @@ print """    <!--Navbar -->
                     <ul class='nav pull-right'>"""
 if username == "admin":
     print "                        <li><a href='/cgi/admin.cgi'>Admin</a></li>"
+    print "                        <li class='divider-vertical'>></li>"
 print """                        <li><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i> %s</a></li>
                     </ul>
                 </div>
