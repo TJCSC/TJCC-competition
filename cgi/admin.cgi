@@ -79,9 +79,53 @@ if 'action' in form:
                     d = connection.cursor()
                     d.execute("UPDATE stories SET votes=%d WHERE id=%d" % (votes,id,))
                     d.close()
-                
-        
+    elif action == 'edit':
+        if 'id' in form:
+            id = int(form.getvalue('id'))
+            with sql.connect('./database') as connection:
+                d = connection.cursor()
+                #d.execute("SELECT * FROM stories WHERE id=?", (id,))
+                d.execute("SELECT * FROM stories WHERE id=%d" % (id,))
+                (name, id, user, story, image, votes) = d.fetchone()
+                d.close()
+            print """<!--Header -->
+            <form method='post' class='form-vertical' action='/cgi/admin.cgi'>
+            <div class='container'>
+                <h1>Title: <input type='text' name='title'  value='%s'/></h1>
+                <h4>By <input type='text' name='user' value='%s' /></h4>
+            </div>""" % (name, user)
 
+            print """<!--Main Content -->
+            <div class='container'>
+                <label>Using image:</label> /files/<input type='text' class='span3 name='image' value='%s'>
+                <label>Edit the story here:</label>
+                <textarea name='story' rows=10 class='span6' >%s</textarea>
+                <br>
+                <input type='hidden' name='id' value='%d' />
+                <button type='submit' name='action' value='update' class='btn btn-primary'>Submit changes</button>
+            </div>
+            </form>""" % (image,story,id)
+    elif action == 'update':
+        if 'id' in form:
+            id = int(form.getvalue('id'))
+
+            with sql.connect('./database') as connection:
+                d = connection.cursor()
+                if 'title' in form:
+                    title = form.getvalue('title')
+                    d.execute("UPDATE stories SET name='%s' WHERE id=%d" % (title,id,))
+                if 'user' in form:
+                    user = form.getvalue('user')
+                    d.execute("UPDATE stories SET user='%s' WHERE id=%d" % (user,id,))
+                if 'image' in form:
+                    image = form.getvalue('image')
+                    d.execute("UPDATE stories SET image='%s' WHERE id=%d" % (image,id,))
+                if 'story' in form:
+                    story = form.getvalue('story')
+                    d.execute("UPDATE stories SET story='%s' WHERE id=%d" % (story,id,))
+                d.close()
+            
+            
 if not 'KOOKIE' in kookie or not kookie['KOOKIE'].value.split('_')[0] == 'admin':
     print "    <META HTTP-EQUIV='refresh' CONTENT='5;URL=/'>"
     print """<!--Info -->
@@ -92,7 +136,7 @@ if not 'KOOKIE' in kookie or not kookie['KOOKIE'].value.split('_')[0] == 'admin'
         </div>
     </div>
 """
-else:
+elif not('action' in form and form.getvalue('action')=='edit'):
     print """<!--Header -->
     <div class='container'>
         <h1>FCC Admin Panel</h1>
@@ -125,7 +169,7 @@ else:
             if rows[i][5] != rows[i-1][5]:
                 rank = i+1
             row += "<td>%d</td>" % (rank)
-            row += "<td><a href='browse.cgi?id=%d'>\
+            row += "<td><a href='admin.cgi?action=edit&id=%d'>\
                     %s</a></td>" % (rows[i][1], rows[i][0])
             row += "<td>%s</td>" % (rows[i][2])
             row += "<td><input type='text' name='vid.%d' placeholder='%d' class='input-mini' style='height: 10px; text-align: right' /></td>" % (rows[i][1],rows[i][5])
