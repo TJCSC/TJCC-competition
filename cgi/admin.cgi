@@ -97,7 +97,7 @@ if 'action' in form:
 
             print """<!--Main Content -->
             <div class='container'>
-                <label>Using image:</label> /files/<input type='text' class='span3 name='image' value='%s'>
+                <label>Using image:</label> /files/<input type='text' class='span3' name='image' value='%s'>
                 <label>Edit the story here:</label>
                 <textarea name='story' rows=10 class='span6' >%s</textarea>
                 <br>
