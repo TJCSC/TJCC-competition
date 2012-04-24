@@ -11,6 +11,7 @@ import cgitb; cgitb.enable()
 print "Content-Type: text/html"
 
 kookie, username = SimpleCookie(os.environ['HTTP_COOKIE']), ""
+username = SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else 'Guest'
 form = cgi.FieldStorage()
 
 success = False
@@ -73,14 +74,17 @@ print """<!--Navbar -->
                         <li><a href='/upload.html'>Submit</a></li>
                         <li><a href='/cgi/browse.cgi'>Browse</a></li>
                     </ul>
-                    <ul class='nav pull-right'>
-                        <li class='active'><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i> %s</a></li>
+                    <ul class='nav pull-right'>"""
+if username == "admin":
+    print "                        <li><a href='/cgi/admin.cgi'>Admin</a></li>"
+    print "                        <li class='divider-vertical'>></li>"
+print """                        <li class='active'><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i> %s</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-""" % (SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else user if success else 'Login')
+""" % username
 
 print """<!--Header -->
     <div class='container'>
