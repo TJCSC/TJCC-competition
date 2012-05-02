@@ -74,6 +74,29 @@ if 'id' in form:
         d.execute("SELECT * FROM stories WHERE id=%d" % (id,))
         (name, id, user, story, image, votes) = d.fetchone()
         d.close()
+    if 'status' in form:
+        status = form.getvalue('status')
+        if status == "success":
+            print """<!--Message if user voted -->
+            <div class='container'>
+                <div class='alert alert-success'>
+                    <strong>Voted successfully.</strong>
+                    <p>This story now has <strong>%s</strong> votes. </p>
+                </div>
+            </div>""" % (votes)
+        else:
+            print """<!--Failure to vote -->
+            <div class='container'>
+                <div class='alert alert-error'>
+                    <strong>Unsuccesful attempt to vote.</strong> """
+            if status == "guest":
+                print "<p>Error: guests cannot vote.</p>"
+            elif status == "voted":
+                print "<p>Error: you have already voted for this story.</p>"
+            elif status == "author":
+                print "<p>Error: you wrote this story.</p>"
+            print """                </div>
+            </div> """
     print """<!--Header -->
     <div class='container'>
         <h1>%s</h1>
