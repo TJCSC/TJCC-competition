@@ -172,7 +172,7 @@ elif not('action' in form and form.getvalue('action')=='edit'):
             row += "<td><a href='admin.py?action=edit&id=%d'>\
                     %s</a></td>" % (rows[i][1], rows[i][0])
             row += "<td>%s</td>" % (rows[i][2])
-            row += "<td><input type='text' name='vid.%d' placeholder='%d' class='input-mini' style='height: 10px; text-align: right' /></td>" % (rows[i][1],rows[i][5])
+            row += "<td><input type='text' name='vid.%d' placeholder='%d' class='input-mini' style='height: 14px; text-align: right' /></td>" % (rows[i][1],rows[i][5])
             row += "<td><input type='checkbox' name='did' value='%d' /></td>" % (rows[i][1])
             row += "</tr>"
             print "    "*6+row
