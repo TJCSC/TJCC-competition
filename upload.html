@@ -27,7 +27,7 @@
                     <ul class="nav">
                         <li><a href="./">Home</a></li>
                         <li class="active"><a href="#">Submit</a></li>
-                        <li><a href="cgi/browse.cgi">Browse</a></li>
+                        <li><a href="cgi/browse.py">Browse</a></li>
                     </ul>
                     <ul class="nav pull-right">
                         <script type="text/javascript">
@@ -48,13 +48,13 @@
                                 if(username != null && username != "")
                                     if(username == 'admin')
                                     {
-                                        document.write("<li><a href='/cgi/admin.cgi'>Admin</a></li>");
+                                        document.write("<li><a href='/cgi/admin.py'>Admin</a></li>");
                                         document.write("<li class='divider-vertical'></li>");
                                     }
-                                document.write("<li><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i> "+username+"</a></li>");
+                                document.write("<li><a href='/cgi/login.py'><i class='icon-user icon-white'></i> "+username+"</a></li>");
                             }
                             else
-                                document.write("<li><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i>Login</a></li>");
+                                document.write("<li><a href='/cgi/login.py'><i class='icon-user icon-white'></i>Login</a></li>");
                         </script>
                     </ul>
                 </div>
@@ -66,7 +66,7 @@
         <h1>FCC Upload Page</h1>
         <p>Submit your story about your favorite color here.</p>
 
-        <form class="well" enctype='multipart/form-data' action='cgi/save_story.cgi' method='post'>
+        <form class="well" enctype='multipart/form-data' action='cgi/save_story.py' method='post'>
             <fieldset>
 
             <label>Color Name:</label>

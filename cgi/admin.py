@@ -44,12 +44,12 @@ print """    <!--Navbar -->
                     <ul class='nav'>
                         <li><a href='/'>Home</a></li>
                         <li><a href='/upload.html'>Submit</a></li>
-                        <li><a href='/cgi/browse.cgi'>Browse</a></li>
+                        <li><a href='/cgi/browse.py'>Browse</a></li>
                     </ul>
                     <ul class='nav pull-right'>
-                        <li class='active'><a href='/cgi/admin.cgi'>Admin</a></li>
+                        <li class='active'><a href='/cgi/admin.py'>Admin</a></li>
                         <li class='divider-vertical'></li>
-                        <li><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i> %s</a></li>
+                        <li><a href='/cgi/login.py'><i class='icon-user icon-white'></i> %s</a></li>
                     </ul>
                 </div>
             </div>
@@ -89,7 +89,7 @@ if 'action' in form:
                 (name, id, user, story, image, votes) = d.fetchone()
                 d.close()
             print """<!--Header -->
-            <form method='post' class='form-vertical' action='/cgi/admin.cgi'>
+            <form method='post' class='form-vertical' action='/cgi/admin.py'>
             <div class='container'>
                 <h1>Title: <input type='text' name='title'  value='%s'/></h1>
                 <h4>By <input type='text' name='user' value='%s' /></h4>
@@ -169,7 +169,7 @@ elif not('action' in form and form.getvalue('action')=='edit'):
             if rows[i][5] != rows[i-1][5]:
                 rank = i+1
             row += "<td>%d</td>" % (rank)
-            row += "<td><a href='admin.cgi?action=edit&id=%d'>\
+            row += "<td><a href='admin.py?action=edit&id=%d'>\
                     %s</a></td>" % (rows[i][1], rows[i][0])
             row += "<td>%s</td>" % (rows[i][2])
             row += "<td><input type='text' name='vid.%d' placeholder='%d' class='input-mini' style='height: 10px; text-align: right' /></td>" % (rows[i][1],rows[i][5])

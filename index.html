@@ -27,7 +27,7 @@
                     <ul class="nav">
                         <li class="active"><a href="/">Home</a></li>
                         <li><a href="/upload.html">Submit</a></li>
-                        <li><a href="/cgi/browse.cgi">Browse</a></li>
+                        <li><a href="/cgi/browse.py">Browse</a></li>
                     </ul>
                     <ul class="nav pull-right">
                         <script type="text/javascript">
@@ -48,13 +48,13 @@
                                 if(username != null && username != "")
                                     if(username == 'admin')
                                     {
-                                        document.write("<li><a href='/cgi/admin.cgi'>Admin</a></li>");
+                                        document.write("<li><a href='/cgi/admin.py'>Admin</a></li>");
                                         document.write("<li class='divider-vertical'></li>");
                                     }
-                                document.write("<li><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i> "+username+"</a></li>");
+                                document.write("<li><a href='/cgi/login.py'><i class='icon-user icon-white'></i> "+username+"</a></li>");
                             }
                             else
-                                document.write("<li><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i>Login</a></li>");
+                                document.write("<li><a href='/cgi/login.py'><i class='icon-user icon-white'></i>Login</a></li>");
                         </script>
                     </ul>
                 </div>
@@ -74,7 +74,7 @@
                         <p><a class="btn btn-primary btn-large" href='upload.html'>Submit a story</a></p>
                     </div>
                     <div class="span2">
-                        <p><a class="btn btn-primary btn-large" href='cgi/browse.cgi'>Browse stories</a></p>
+                        <p><a class="btn btn-primary btn-large" href='cgi/browse.py'>Browse stories</a></p>
                     </div>
                 </div>
             </div>

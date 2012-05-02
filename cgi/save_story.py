@@ -59,6 +59,6 @@ with sql.connect('./database') as connection:
 print """\
 Content-Type: text/html\n
 <html><body>
-<meta http-equiv="REFRESH" content="0;browse.cgi?id=%d">
+<meta http-equiv="REFRESH" content="0;browse.py?id=%d">
 </body></html>
 """ % (id,)

@@ -72,13 +72,13 @@ print """<!--Navbar -->
                     <ul class='nav'>
                         <li><a href='/'>Home</a></li>
                         <li><a href='/upload.html'>Submit</a></li>
-                        <li><a href='/cgi/browse.cgi'>Browse</a></li>
+                        <li><a href='/cgi/browse.py'>Browse</a></li>
                     </ul>
                     <ul class='nav pull-right'>"""
 if username == "admin":
-    print "                        <li><a href='/cgi/admin.cgi'>Admin</a></li>"
+    print "                        <li><a href='/cgi/admin.py'>Admin</a></li>"
     print "                        <li class='divider-vertical'>></li>"
-print """                        <li class='active'><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i> %s</a></li>
+print """                        <li class='active'><a href='/cgi/login.py'><i class='icon-user icon-white'></i> %s</a></li>
                     </ul>
                 </div>
             </div>
@@ -111,7 +111,7 @@ elif 'KOOKIE' in kookie:
             <p><a href='/'>Click here to return to the front page.</a></p>
             <div class='row'>
                     <div class='span1'>
-                        <p><a class='btn btn-danger btn-large' href='/cgi/logout.cgi'>Logout</a></p>
+                        <p><a class='btn btn-danger btn-large' href='/cgi/logout.py'>Logout</a></p>
                     </div>
             </div>
         </div>
@@ -130,7 +130,7 @@ else:
             </fieldset>
 
             <button type='submit' class='btn btn-primary'>Submit</button>
-            <p><br>Don't have an account? <a href='/cgi/register.cgi'>Register one here.</a></p>
+            <p><br>Don't have an account? <a href='/cgi/register.py'>Register one here.</a></p>
          </form>
      </div>
 """

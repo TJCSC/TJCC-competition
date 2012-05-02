@@ -53,13 +53,13 @@ print """    <!--Navbar -->
                     <ul class='nav'>
                         <li><a href='/'>Home</a></li>
                         <li><a href='/upload.html'>Submit</a></li>
-                        <li class='active'><a href='/cgi/browse.cgi'>Browse</a></li>
+                        <li class='active'><a href='/cgi/browse.py'>Browse</a></li>
                     </ul>
                     <ul class='nav pull-right'>"""
 if username == "admin":
-    print "                        <li><a href='/cgi/admin.cgi'>Admin</a></li>"
+    print "                        <li><a href='/cgi/admin.py'>Admin</a></li>"
     print "                        <li class='divider-vertical'>></li>"
-print """                        <li><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i> %s</a></li>
+print """                        <li><a href='/cgi/login.py'><i class='icon-user icon-white'></i> %s</a></li>
                     </ul>
                 </div>
             </div>
@@ -112,7 +112,7 @@ if 'id' in form:
     </div>""" % (image,story)
     print """<!--Vote Button -->
     <div class='container'>
-        <form enctype='multipart/form-data' action='vote.cgi' method='post'>
+        <form enctype='multipart/form-data' action='vote.py' method='post'>
         <input type='hidden' name='id' value=%s />
         <input type='image' src='../assets/img/vote.jpg' alt='Vote' />
      </div>
@@ -155,7 +155,7 @@ else:
             if rows[i][5] != rows[i-1][5]:
                 rank = i+1
             row += "<td>%d</td>" % (rank)
-            row += "<td><a href='browse.cgi?id=%d'>\
+            row += "<td><a href='browse.py?id=%d'>\
                     %s</a></td>" % (rows[i][1], rows[i][0])
             row += "<td>%s</td>" % (rows[i][2])
             row += "<td>%d</td>" % (rows[i][5])

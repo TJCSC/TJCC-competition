@@ -49,6 +49,6 @@ else:
 #    print "You must be logged in to vote.<br />"
     status='guest'
 
-#print '<a href="browse.cgi?id=%d">Return</a>' % (id,)
-print '<meta http-equiv="REFRESH" content="0;browse.cgi?id=%d&status=%s">' % (id,status)
+#print '<a href="browse.py?id=%d">Return</a>' % (id,)
+print '<meta http-equiv="REFRESH" content="0;browse.py?id=%d&status=%s">' % (id,status)
 print "</body></html>"

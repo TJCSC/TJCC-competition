@@ -57,10 +57,10 @@ print """<!--Navbar -->
                     <ul class='nav'>
                         <li><a href='/'>Home</a></li>
                         <li><a href='/upload.html'>Submit</a></li>
-                        <li><a href='/cgi/browse.cgi'>Browse</a></li>
+                        <li><a href='/cgi/browse.py'>Browse</a></li>
                     </ul>
                     <ul class='nav pull-right'>
-                        <li><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i> Login</a></li>
+                        <li><a href='/cgi/login.py'><i class='icon-user icon-white'></i> Login</a></li>
                     </ul>
                 </div>
             </div>

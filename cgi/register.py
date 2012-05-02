@@ -42,10 +42,10 @@ print """<!--Navbar -->
                     <ul class='nav'>
                         <li><a href='/'>Home</a></li>
                         <li><a href='/upload.html'>Submit</a></li>
-                        <li><a href='/cgi/browse.cgi'>Browse</a></li>
+                        <li><a href='/cgi/browse.py'>Browse</a></li>
                     </ul>
                     <ul class='nav pull-right'>
-                        <li class='active'><a href='/cgi/login.cgi'><i class='icon-user icon-white'></i> %s</a></li>
+                        <li class='active'><a href='/cgi/login.py'><i class='icon-user icon-white'></i> %s</a></li>
                     </ul>
                 </div>
             </div>
@@ -86,12 +86,12 @@ if 'username' in form and 'password' in form and 'verify' in form:
                 success = True
 
 if success:
-    print "		<meta http-equiv='REFRESH' content='0;login.cgi?username=%s&password=%s'>" % (username, password)
+    print "		<meta http-equiv='REFRESH' content='0;login.py?username=%s&password=%s'>" % (username, password)
     print """<!--Info -->
     <div class='container'>
         <div class='alert alert-success'>
             <h1>Account created successfully.</h1>
-            <p>You will be automatically logged in, or <a href="/cgi/login.cgi">click here to log in manually</a>.</p>
+            <p>You will be automatically logged in, or <a href="/cgi/login.py">click here to log in manually</a>.</p>
         </div>
     </div>
 """
