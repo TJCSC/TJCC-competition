@@ -1,15 +1,13 @@
 #!/usr/bin/env python
 
 import sqlite3 as sql
-#from subprocess import call
 from shutil import rmtree
 
 def main():
 
-    if raw_input("Are you sure you want to delete all stories and pictures and non-testing users? This cannot be undone! (y/n) ") != "y":
+    if raw_input("Are you sure you want to delete all stories, pictures, and users? This cannot be undone! (y/n) ") != "y":
         return 1
 
-#    call("rm files/*", shell=True)
     try:
         rmtree("./files/")
     except OSError:
@@ -29,7 +27,7 @@ def main():
         
         d.execute('DELETE FROM stories')
         d.execute('UPDATE users SET stories="[]", votedFor="[]"')
-        d.execute('DELETE FROM users WHERE username!="herp" AND username!="test" AND username!="admin"')
+        d.execute('DELETE FROM users')
 
         connection.commit()
         d.close()
