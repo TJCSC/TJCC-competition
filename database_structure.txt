@@ -1,6 +1,6 @@
 user
 	username (text)
-	password (text)  #plain text
+	password (text)
 	stories (text)   #in python list format
         votedFor (text)  #also this
 
