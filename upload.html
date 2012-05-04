@@ -45,6 +45,8 @@
                             var kookie=getCookie("KOOKIE")
                             if(kookie!=undefined) {
                                 var username=kookie.split("_")[0];
+                                if(username[0] == "\"")
+                                    username = username.substr(1)
                                 if(username != null && username != "")
                                     if(username == 'admin')
                                     {
