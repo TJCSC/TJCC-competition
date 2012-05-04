@@ -26,24 +26,23 @@ if 'username' in form and 'password' in form:
         d.execute("SELECT * FROM users WHERE username='%s' AND password='%s' LIMIT 1" % (user, passwd)) 
         rows = d.fetchall()
         if len(rows) > 0:
-            session_obj = {}
-            session_obj[user] = [passwd]
+            session_obj = user + '_' + passwd
             session_file = open(os.path.join('.sessions', user), 'wb')
             pickle.dump(session_obj, session_file, 1)
             session_file.close()
             cookie = SimpleCookie()
-            cookie['KOOKIE'] = user+'_'+passwd
+            cookie['KOOKIE'] = user + '_' + passwd
             cookie['KOOKIE']['path'] = '/'
             cookie['KOOKIE']['expires'] = \
                   (datetime.datetime.now() + datetime.timedelta(days=30)).strftime("%a, %d-%b-%Y %H:%M:%S PST")
             print cookie.output()
             success = 2
-            username = session_obj[user]
+            username = user
         else:
             username="Guest"
             success =1
-            connection.commit()
-            d.close()
+        connection.commit()
+        d.close()
 print
 print """<!DOCTYPE html>
 <html lang="en">
