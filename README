@@ -1,6 +1,6 @@
 TJ Cybersecurity Competition - "Favorite Color Competition"
 
-To use, run: ./server.py
+To use, run: ./server.py on Linux and Mac or "python server.py" on Windows
 Browse to http://localhost:8080 to view the website.
 
 Written for python 2.7, and may require SQLite 3.
