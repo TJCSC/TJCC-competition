@@ -19,36 +19,27 @@ if 'KOOKIE' in cookie:
     with sql.connect('./database') as connection:
         d = connection.cursor()
     
-        #d.execute('SELECT votedFor FROM users WHERE username=?', (username,))
         d.execute('SELECT votedFor FROM users WHERE username="%s"' % (username,))
         votedFor = eval(d.fetchone()[0])
         d.execute('SELECT stories FROM users WHERE username="%s"' % (username,))
         stories = eval(d.fetchone()[0])
         if id in votedFor:
-#            print 'You have already voted for this story.<br />'
             status = 'voted'
         elif id in stories:
-#            print 'You wrote this story no voting today.<br />'
             status = 'author'
         else:
             votedFor.append(id)
-            #d.execute('UPDATE users SET votedFor=? WHERE username=?', (votedFor, username))
             d.execute('UPDATE users SET votedFor="%s" WHERE username="%s"' % (votedFor, username))
-            #d.execute('SELECT votes FROM stories WHERE id=?', (id,))
             d.execute('SELECT votes FROM stories WHERE id=%d' % (id,))
             votes = d.fetchone()[0]
-            #d.execute('UPDATE stories SET votes=? WHERE id=?', (votes+1, id))
             d.execute('UPDATE stories SET votes=%d WHERE id=%d' % (votes+1, id))
-#            print 'Current votes: %d<br />' % (votes+1,)
             status = 'success'
     
         connection.commit()
         d.close()
 else:
     username = 'Guest'
-#    print "You must be logged in to vote.<br />"
     status='guest'
 
-#print '<a href="browse.py?id=%d">Return</a>' % (id,)
 print '<meta http-equiv="REFRESH" content="0;browse.py?id=%d&status=%s">' % (id,status)
 print "</body></html>"
