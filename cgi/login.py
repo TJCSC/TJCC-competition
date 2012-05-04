@@ -14,7 +14,10 @@ kookie, username = SimpleCookie(os.environ['HTTP_COOKIE']), ""
 username = SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else 'Guest'
 form = cgi.FieldStorage()
 
-success = False
+success = 0
+    # 0 - first attempt
+    # 1 - failed attempt
+    # 2 - successful attempt
 
 if 'username' in form and 'password' in form:
     user, passwd = form.getvalue('username'), form.getvalue('password')
@@ -34,10 +37,11 @@ if 'username' in form and 'password' in form:
             cookie['KOOKIE']['expires'] = \
                   (datetime.datetime.now() + datetime.timedelta(days=30)).strftime("%a, %d-%b-%Y %H:%M:%S PST")
             print cookie.output()
-            success = True
+            success = 2
             username = session_obj[user]
         else:
-            username=""
+            username="Guest"
+            success =1
             connection.commit()
             d.close()
 print
@@ -93,7 +97,7 @@ print """<!--Header -->
     </div>
 """ 
 
-if success:
+if success == 2:
     print "    <META HTTP-EQUIV='refresh' CONTENT='3;URL=/'>"
     print """<!--Info -->
     <div class='container'>
@@ -118,6 +122,13 @@ elif 'KOOKIE' in kookie:
     </div>
 """
 else:
+    if success == 1:
+        print """<!--Error message -->
+        <div class='container'>
+            <div class='alert alert-error'>
+                <strong>Invalid username or password.</strong> 
+                <p>Please try again.</p>
+        </div>"""
     print """<!--Login form -->
     <div class='container'>
         <form class='well' method='post'>
