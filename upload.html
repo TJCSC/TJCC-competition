@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>FCC</title>
-    <link href="./assets/favicon.ico" rel="icon">
-    <link href="./assets/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/favicon.ico" rel="icon">
+    <link href="/assets/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -17,49 +17,42 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="#">FCC</a>
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        <li><a href="./">Home</a></li>
-                        <li class="active"><a href="#">Submit</a></li>
-                        <li><a href="cgi/browse.py">Browse</a></li>
-                    </ul>
-                    <ul class="nav pull-right">
-                        <script type="text/javascript">
-                            function getCookie(name)
-                            {
-                                var i, x, y, ARRcookies = document.cookie.split(";");
-                                for(i=0;i<ARRcookies.length;i++) {
-                                    x=ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
-                                    y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-                                    x=x.replace(/^\s+|\s+$/g,"");
-                                    if(x==name) return unescape(y);
+                <a class="brand" href="/">FCC</a>
+                <ul class="nav">
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a href="/upload.html">Submit</a></li>
+                    <li><a href="cgi/browse.py">Browse</a></li>
+                </ul>
+                <ul class="nav pull-right">
+                    <script type="text/javascript">
+                        function getCookie(name)
+                        {
+                            var i, x, y, ARRcookies = document.cookie.split(";");
+                            for(i=0;i<ARRcookies.length;i++) {
+                                x=ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+                                y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+                                x=x.replace(/^\s+|\s+$/g,"");
+                                if(x==name) return unescape(y);
+                            }
+                            return null;
+                        }
+                        var kookie=getCookie("KOOKIE")
+                        if(kookie!=undefined) {
+                            var username=kookie.split("_")[0];
+                            if(username[0] == "\"")
+                                username = username.substr(1)
+                            if(username != null && username != "")
+                                if(username == 'admin')
+                                {
+                                    document.write("<li><a href='/cgi/admin.py'> Admin</a></li>");
+                                    document.write("<li class='divider-vertical'></li>");
                                 }
-                                return null;
-                            }
-                            var kookie=getCookie("KOOKIE")
-                            if(kookie!=undefined) {
-                                var username=kookie.split("_")[0];
-                                if(username[0] == "\"")
-                                    username = username.substr(1)
-                                if(username != null && username != "")
-                                    if(username == 'admin')
-                                    {
-                                        document.write("<li><a href='/cgi/admin.py'> Admin</a></li>");
-                                        document.write("<li class='divider-vertical'></li>");
-                                    }
-                                document.write("<li><a href='/cgi/login.py'><i class='icon-user icon-white'></i> "+username+"</a></li>");
-                            }
-                            else
-                                document.write("<li><a href='/cgi/login.py'><i class='icon-user icon-white'></i> Login</a></li>");
-                        </script>
-                    </ul>
-                </div>
+                            document.write("<li><a href='/cgi/login.py'><i class='icon-user icon-white'></i> "+username+"</a></li>");
+                        }
+                        else
+                            document.write("<li><a href='/cgi/login.py'><i class='icon-user icon-white'></i> Login</a></li>");
+                    </script>
+                </ul>
             </div>
         </div>
     </div>
@@ -71,7 +64,7 @@
         <form class="well" enctype='multipart/form-data' action='cgi/save_story.py' method='post'>
             <fieldset>
 
-            <label>Color Name:</label>
+            <label>Story Title:</label>
             <input type='text' name='color_name' value='' placeholder="Your favorite color" class="span3" required/>
 
             <label>Story:</label>
@@ -84,8 +77,10 @@
             <button type='submit' class="btn btn-primary">Submit</button>
             </fieldset>
         </form>
-        <hr>
+    </div>
+    <div class="container">
         <footer class="footer">
+            <hr>
             <p>&copy; Thomas Jefferson Computer Security Competition Club 2012</p>
         </footer>
     </div>

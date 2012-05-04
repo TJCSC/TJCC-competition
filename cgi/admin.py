@@ -34,24 +34,17 @@ print """    <!--Navbar -->
     <div class='navbar navbar-fixed-top'>
         <div class='navbar-inner'>
             <div class='container'>
-                <a class='btn btn-navbar' data-toggle='collapse' data-target='.nav-collapse'>
-                    <span class='icon-bar'></span>
-                    <span class='icon-bar'></span>
-                    <span class='icon-bar'></span>
-                </a>
                 <a class='brand' href='/'>FCC</a>
-                <div class='nav-collapse'>
-                    <ul class='nav'>
-                        <li><a href='/'>Home</a></li>
-                        <li><a href='/upload.html'>Submit</a></li>
-                        <li><a href='/cgi/browse.py'>Browse</a></li>
-                    </ul>
-                    <ul class='nav pull-right'>
-                        <li class='active'><a href='/cgi/admin.py'>Admin</a></li>
-                        <li class='divider-vertical'></li>
-                        <li><a href='/cgi/login.py'><i class='icon-user icon-white'></i> %s</a></li>
-                    </ul>
-                </div>
+                <ul class='nav'>
+                    <li><a href='/'>Home</a></li>
+                    <li><a href='/upload.html'>Submit</a></li>
+                    <li><a href='/cgi/browse.py'>Browse</a></li>
+                </ul>
+                <ul class='nav pull-right'>
+                    <li class='active'><a href='/cgi/admin.py'>Admin</a></li>
+                    <li class='divider-vertical'></li>
+                    <li><a href='/cgi/login.py'><i class='icon-user icon-white'></i> %s</a></li>
+                </ul>
             </div>
         </div>
     </div>
