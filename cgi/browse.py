@@ -113,7 +113,7 @@ if 'id' in form:
     <div class='container'>
         <form enctype='multipart/form-data' action='vote.py' method='post'>
         <input type='hidden' name='id' value=%s />
-        <input type='image' src='../assets/img/vote.jpg' alt='Vote' />
+        <input type='submit' class='btn btn-primary' value='Vote for this story' />
      </div>
      </form>""" % (id)
 
