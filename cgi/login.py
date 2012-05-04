@@ -11,7 +11,7 @@ import cgitb; cgitb.enable()
 print "Content-Type: text/html"
 
 kookie, username = SimpleCookie(os.environ['HTTP_COOKIE']), ""
-username = SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else 'Guest'
+username = SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else 'Login'
 form = cgi.FieldStorage()
 
 success = 0
@@ -39,7 +39,7 @@ if 'username' in form and 'password' in form:
             success = 2
             username = user
         else:
-            username="Guest"
+            username="Login"
             success =1
         connection.commit()
         d.close()

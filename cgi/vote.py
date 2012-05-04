@@ -38,7 +38,6 @@ if 'KOOKIE' in cookie:
         connection.commit()
         d.close()
 else:
-    username = 'Guest'
     status='guest'
 
 print '<meta http-equiv="REFRESH" content="0;browse.py?id=%d&status=%s">' % (id,status)

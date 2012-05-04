@@ -9,7 +9,7 @@ import thread
 from Cookie import SimpleCookie
 
 kookie, username = SimpleCookie(os.environ['HTTP_COOKIE']), ""
-username = SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else 'Guest'
+username = SimpleCookie(os.environ['HTTP_COOKIE'])['KOOKIE'].value.split('_')[0] if 'KOOKIE' in kookie else 'Login'
 
 sorted_rows = []
 def quick_sort(row):
